@@ -13,7 +13,7 @@ public interface PizzaService {
     PizzaGroceryResponseDto addGrocery(Long id, Long groceryId);
     List<PizzaResponseDto> getAll();
     PizzaResponseDto getById(Long id);
-    List<GroceryResponseDto> getGroceriesByPizza(Long id);
     PizzaResponseDto update(Long id, UpdatePizzaRequestDto updatePizzaRequestDto);
     void delete(Long id);
+    void deleteGrocery(long id, long groceryId);
 }

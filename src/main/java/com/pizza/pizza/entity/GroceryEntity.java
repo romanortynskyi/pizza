@@ -1,9 +1,7 @@
 package com.pizza.pizza.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class GroceryEntity {
@@ -13,6 +11,18 @@ public class GroceryEntity {
     private String name;
     private Double mass;
     private Double price;
+
+    @ManyToMany(mappedBy = "groceries")
+    private List<PizzaEntity> pizzas;
+
+    @OneToMany(mappedBy = "grocery")
+    private List<OrderItemAdditionalGroceryEntity> orderItemAdditionalGroceries;
+
+    public GroceryEntity() {}
+
+    public GroceryEntity(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

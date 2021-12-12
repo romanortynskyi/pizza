@@ -44,12 +44,6 @@ public class PizzaController {
         return user;
     }
 
-    @GetMapping("/{id}/groceries")
-    public List<GroceryResponseDto> getGroceriesByPizza(@PathVariable final long id) {
-        List<GroceryResponseDto> groceries = pizzaService.getGroceriesByPizza(id);
-        return groceries;
-    }
-
     @PutMapping("/{id}")
     public PizzaResponseDto update(@PathVariable final long id, @RequestBody final UpdatePizzaRequestDto updatePizzaRequestDto) {
         PizzaResponseDto user = pizzaService.update(id, updatePizzaRequestDto);
@@ -59,5 +53,10 @@ public class PizzaController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable final long id) {
         pizzaService.delete(id);
+    }
+
+    @DeleteMapping("/{id}/groceries/{groceryId}")
+    public void deleteGroceryByPizza(@PathVariable final long id, @PathVariable final long groceryId) {
+        pizzaService.deleteGrocery(id, groceryId);
     }
 }

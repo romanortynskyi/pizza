@@ -53,7 +53,6 @@ public class PizzaServiceImpl implements PizzaService {
 
         PizzaGroceryResponseDto responseDto = new PizzaGroceryResponseDto();
 
-        responseDto.setPizzaId(id);
         responseDto.setGrocery(mapper.map(grocery, GroceryResponseDto.class));
 
         return responseDto;
@@ -74,15 +73,6 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
-    public List<GroceryResponseDto> getGroceriesByPizza(Long id) {
-        ModelMapper mapper = new ModelMapper();
-        PizzaEntity pizza = pizzaRepository.findById(id).get();
-        List<GroceryEntity> groceries = pizza.getGroceries();
-
-        return groceries.stream().map(g -> mapper.map(g, GroceryResponseDto.class)).collect(Collectors.toList());
-    }
-
-    @Override
     public PizzaResponseDto update(Long id, UpdatePizzaRequestDto updatePizzaRequestDto) {
         ModelMapper mapper = new ModelMapper();
         PizzaEntity pizza = pizzaRepository.findById(id).get();
@@ -97,5 +87,18 @@ public class PizzaServiceImpl implements PizzaService {
     @Override
     public void delete(Long id) {
         pizzaRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteGrocery(long id, long groceryId) {
+        PizzaEntity pizza = pizzaRepository.findById(id).get();
+        List<GroceryEntity> groceries = pizza.getGroceries();
+
+        GroceryEntity grocery = groceryRepository.findById(groceryId).get();
+
+        groceries.remove(grocery);
+        pizza.setGroceries(groceries);
+
+        pizzaRepository.save(pizza);
     }
 }

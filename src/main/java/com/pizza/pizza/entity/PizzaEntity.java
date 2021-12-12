@@ -10,8 +10,24 @@ public class PizzaEntity {
     private Long id;
     private String name;
 
-    @OneToMany()
+    @ManyToMany
+    @JoinTable(
+            name = "pizza_grocery",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "grocery_id")
+    )
     private List<GroceryEntity> groceries;
+
+    @OneToMany(mappedBy = "pizza")
+    private List<OrderItemEntity> orderItems;
+
+    public List<OrderItemEntity> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItemEntity> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public Long getId() {
         return id;

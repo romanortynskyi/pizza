@@ -1,4 +1,4 @@
-package com.pizza.pizza.dto.pizza.response;
+package com.pizza.pizza.dto.order.response;
 
 import com.pizza.pizza.dto.grocery.response.GroceryResponseDto;
 
